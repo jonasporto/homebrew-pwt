@@ -14,6 +14,22 @@ class Pwt < Formula
     bash_completion.install "completions/pwt.bash" => "pwt"
     zsh_completion.install "completions/_pwt"
     fish_completion.install "completions/pwt.fish"
+    
+    # Install bundled plugins
+    (share/"pwt/plugins").install Dir["plugins/pwt-*"]
+  end
+
+  def post_install
+    # Create user plugins directory and symlink bundled plugins
+    plugins_dir = Pathname.new(Dir.home)/".pwt/plugins"
+    plugins_dir.mkpath unless plugins_dir.exist?
+    
+    # Symlink bundled plugins to user directory
+    (share/"pwt/plugins").children.each do |plugin|
+      target = plugins_dir/plugin.basename
+      target.unlink if target.symlink? || target.exist?
+      target.make_symlink(plugin)
+    end
   end
 
   def caveats
@@ -28,6 +44,10 @@ class Pwt < Formula
 
         # fish (~/.config/fish/config.fish)
         pwt shell-init fish | source
+
+      Bundled plugins installed:
+        - aitools: AI integration (topology, context)
+        - extras: Utilities (benchmark, marker, conflicts, prompt)
 
       Run 'pwt doctor' to verify your setup.
     EOS
