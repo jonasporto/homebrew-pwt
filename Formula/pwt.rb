@@ -1,8 +1,8 @@
 class Pwt < Formula
   desc "Power Worktrees - Git worktree manager for multiple projects"
   homepage "https://github.com/jonasporto/pwt"
-  url "https://github.com/jonasporto/pwt/archive/refs/tags/v0.2.7.tar.gz"
-  sha256 "c3779645f43f94ab53b934079af93023402ea101179d2fe7367713c0855c9027"
+  url "https://github.com/jonasporto/pwt/archive/refs/tags/v0.2.8.tar.gz"
+  sha256 "8d55c98eeb88506fe535735f937bdc42d8754adff7d403f14a6b5e96a7c6c0a7"
   license "MIT"
 
   depends_on "jq"
